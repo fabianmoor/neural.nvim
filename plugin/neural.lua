@@ -1,10 +1,12 @@
--- plugin/neural.lua
-if vim.g.loaded_my_plugin then
+if vim.g.loaded_neural then
 	return
 end
-vim.g.loaded_my_plugin = true
+vim.g.loaded_neural = true
 
-vim.api.nvim_create_user_command("MyPluginHello", function()
-	local plugin = require("neural.nvim")
-	print(plugin.config.greeting)
-end, {})
+vim.api.nvim_create_user_command("NeuralAsk", function()
+	require("neural").ask_selection()
+end, { range = true })
+
+vim.keymap.set("v", "<leader>la", function()
+	require("neural").ask_selection()
+end, { desc = "Ask LLM about selection" })
